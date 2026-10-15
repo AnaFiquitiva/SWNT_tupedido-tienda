@@ -1,24 +1,39 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { FormularioPedido } from "@/components/pedido/FormularioPedido";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "TuPedido Tienda — Nuevo pedido" },
+      { name: "description", content: "Registra pedidos de tu tienda de barrio desde el celular, rápido y sin cuaderno." },
+      { property: "og:title", content: "TuPedido Tienda" },
+      { property: "og:description", content: "Registra pedidos de tu tienda desde el celular." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
+  const [abierto, setAbierto] = useState(false);
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="mx-auto min-h-screen max-w-xl px-4 py-6 text-base">
+      <header className="mb-6">
+        <p className="font-display text-2xl font-bold text-primary">TuPedido Tienda</p>
+      </header>
+      {abierto ? (
+        <FormularioPedido key={Date.now()} onTerminar={() => setAbierto(false)} />
+      ) : (
+        <section className="flex flex-col gap-4 py-16 text-center">
+          <h1 className="font-display text-3xl font-bold">Adiós al cuaderno</h1>
+          <p className="text-muted-foreground">Anota los pedidos de tus clientes en segundos.</p>
+          <button type="button" className="btn-primario" onClick={() => setAbierto(true)}>
+            Nuevo pedido
+          </button>
+        </section>
+      )}
+    </main>
   );
 }
