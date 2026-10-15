@@ -27,3 +27,8 @@ npm run dev
 - TypeScript
 - React
 - Tailwind CSS
+
+## TuPedido Tienda — Formulario de Pedido (C4)
+- Lógica: `src/lib/pedido.ts` · UI: `src/components/pedido/FormularioPedido.tsx`
+- Ejecutar: `bun install && bun run dev` · Pruebas: `bunx vitest run src/test/pedido.test.ts`
+- Sin conexión: los pedidos se guardan en el celular como "Pendiente" y pasan a "Recibido" al volver la señal.
