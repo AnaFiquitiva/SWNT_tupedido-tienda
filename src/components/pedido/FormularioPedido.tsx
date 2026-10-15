@@ -1,12 +1,12 @@
 /**
  * Formulario de Pedido (C4) — UI mobile-first, accesible (botones ≥ 48 px, texto ≥ 16 px).
  */
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useConexion } from "@/hooks/useConexion";
 import {
   PRODUCTOS_FRECUENTES,
   UNIDADES,
   guardarPedido,
-  sincronizarPendientes,
   validarPedido,
   type DatosPedido,
   type Errores,
@@ -25,27 +25,6 @@ const vacio = (): DatosPedido => ({
 });
 
 const nuevoId = () => Math.random().toString(36).slice(2, 10);
-
-/** Escucha la conexión y sincroniza pendientes al volver la señal. */
-function useConexion() {
-  const [enLinea, setEnLinea] = useState(true);
-  useEffect(() => {
-    setEnLinea(navigator.onLine);
-    sincronizarPendientes(localStorage);
-    const on = () => {
-      setEnLinea(true);
-      sincronizarPendientes(localStorage);
-    };
-    const off = () => setEnLinea(false);
-    window.addEventListener("online", on);
-    window.addEventListener("offline", off);
-    return () => {
-      window.removeEventListener("online", on);
-      window.removeEventListener("offline", off);
-    };
-  }, []);
-  return enLinea;
-}
 
 export function FormularioPedido({ onTerminar }: { onTerminar: () => void }) {
   const enLinea = useConexion();
@@ -80,7 +59,15 @@ export function FormularioPedido({ onTerminar }: { onTerminar: () => void }) {
     ev.preventDefault();
     const e = validarPedido(datos);
     setErrores(e);
-    if (Object.keys(e).length) return;
+    // Lleva el foco al primer campo con error (en el orden del formulario).
+    const orden: [keyof Errores, string][] = [
+      ["cliente", "cliente"], ["celular", "celular"], ["items", "manual"], ["direccion", "direccion"],
+    ];
+    const primero = orden.find(([k]) => e[k]);
+    if (primero) {
+      document.getElementById(primero[1])?.focus();
+      return;
+    }
     setGuardado(guardarPedido(localStorage, datos, navigator.onLine));
   };
 
@@ -102,7 +89,7 @@ export function FormularioPedido({ onTerminar }: { onTerminar: () => void }) {
           </p>
         )}
         <button type="button" className="btn-primario w-full" onClick={onTerminar}>
-          Listo
+          Registrar otro pedido
         </button>
       </section>
     );
@@ -175,7 +162,7 @@ export function FormularioPedido({ onTerminar }: { onTerminar: () => void }) {
             ))}
           </ul>
         )}
-        {errores.items && <p role="alert" className="texto-error">{errores.items}</p>}
+        <p aria-live="polite" className="texto-error">{errores.items}</p>
       </fieldset>
 
       {/* Paso 4: entrega y autorización */}
@@ -220,7 +207,7 @@ function Campo({ id, etiqueta, error, children }: {
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="text-base font-medium">{etiqueta}</label>
       {children}
-      {error && <p role="alert" className="texto-error">{error}</p>}
+      <p id={`${id}-error`} aria-live="polite" className="texto-error">{error}</p>
     </div>
   );
 }

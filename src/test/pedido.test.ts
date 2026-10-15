@@ -25,6 +25,12 @@ describe("validarPedido", () => {
     expect(validarPedido({ ...base, whatsapp: true }).celular).toBeDefined();
     expect(validarPedido({ ...base, whatsapp: true, celular: "3001234567" })).toEqual({});
   });
+  it("exige celular colombiano que empiece por 3", () => {
+    expect(validarPedido({ ...base, celular: "1234567890" }).celular).toBe(
+      "Escribe un celular de 10 dígitos que empiece por 3",
+    );
+    expect(validarPedido({ ...base, celular: "3101234567" }).celular).toBeUndefined();
+  });
   it("rechaza celular que no tenga 10 dígitos", () => {
     expect(validarPedido({ ...base, celular: "300" }).celular).toBeDefined();
   });

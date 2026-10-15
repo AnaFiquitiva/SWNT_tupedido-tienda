@@ -31,4 +31,8 @@ npm run dev
 ## TuPedido Tienda — Formulario de Pedido (C4)
 - Lógica: `src/lib/pedido.ts` · UI: `src/components/pedido/FormularioPedido.tsx`
 - Ejecutar: `bun install && bun run dev` · Pruebas: `bunx vitest run src/test/pedido.test.ts`
+- Pruebas incluidas:
+  - `src/test/pedido.test.ts`: reglas de negocio (productos, domicilio, WhatsApp, celular colombiano ^3\d{9}$), consecutivo y sincronización sin señal.
+  - `src/test/formulario-pedido.test.tsx` (Testing Library): "Agrega un producto" y foco al guardar vacío, número del pedido al guardar, y bloqueo sin sesión.
+- Sesión: simulada con `useSesion` (usuario guardado en el celular); sin sesión se muestra "Inicia sesión para registrar pedidos".
 - Sin conexión: los pedidos se guardan en el celular como "Pendiente" y pasan a "Recibido" al volver la señal.

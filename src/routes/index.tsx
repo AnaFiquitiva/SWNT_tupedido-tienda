@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { FormularioPedido } from "@/components/pedido/FormularioPedido";
+import { RequiereSesion } from "@/components/pedido/RequiereSesion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -23,6 +24,7 @@ function Index() {
       <header className="mb-6">
         <p className="font-display text-2xl font-bold text-primary">TuPedido Tienda</p>
       </header>
+      <RequiereSesion>
       {abierto ? (
         <FormularioPedido key={Date.now()} onTerminar={() => setAbierto(false)} />
       ) : (
@@ -34,6 +36,7 @@ function Index() {
           </button>
         </section>
       )}
+      </RequiereSesion>
     </main>
   );
 }

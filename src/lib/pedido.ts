@@ -64,7 +64,7 @@ export function validarPedido(d: DatosPedido): Errores {
   else if (d.cliente.trim().length > 80) e.cliente = "Nombre muy largo";
 
   const cel = d.celular.trim();
-  if (cel && !/^\d{10}$/.test(cel)) e.celular = "El celular debe tener 10 dígitos";
+  if (cel && !/^3\d{9}$/.test(cel)) e.celular = "Escribe un celular de 10 dígitos que empiece por 3";
   else if (d.whatsapp && !cel) e.celular = "Escribe el celular para avisar por WhatsApp";
 
   if (!d.items.some((i) => i.nombre.trim() && i.cantidad > 0)) e.items = "Agrega un producto";
