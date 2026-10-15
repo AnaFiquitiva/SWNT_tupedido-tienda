@@ -162,7 +162,7 @@ export function FormularioPedido({ onTerminar }: { onTerminar: () => void }) {
             ))}
           </ul>
         )}
-        {errores.items && <p aria-live="polite" className="texto-error">{errores.items}</p>}
+        <p aria-live="polite" className="texto-error">{errores.items}</p>
       </fieldset>
 
       {/* Paso 4: entrega y autorización */}
@@ -207,7 +207,7 @@ function Campo({ id, etiqueta, error, children }: {
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="text-base font-medium">{etiqueta}</label>
       {children}
-      {error && <p aria-live="polite" className="texto-error">{error}</p>}
+      <p id={`${id}-error`} aria-live="polite" className="texto-error">{error}</p>
     </div>
   );
 }
