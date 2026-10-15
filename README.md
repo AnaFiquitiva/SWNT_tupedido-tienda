@@ -22,6 +22,18 @@ App móvil para que tenderos de barrio en Colombia registren y consulten sus ped
 | `src/hooks/useConexion.ts` · `src/hooks/useSesion.ts` | Estado de conexión y sesión simulada |
 | `src/test/` | 12 pruebas (Vitest + Testing Library) |
 
+## Cómo ejecutar con npm
+
+Requiere Node.js y npm.
+
+```sh
+npm install        # instala las dependencias (incluye @testing-library/dom)
+npm run dev        # abre la app en http://localhost:8080
+npx vitest run     # ejecuta todas las pruebas
+```
+
+También puedes servirte de los scripts declarados en `package.json`: `npm run test` equivale a `npx vitest run` y `npm run test:watch` mantiene las pruebas observando los cambios.
+
 ---
 
 # Welcome to your Lovable project
