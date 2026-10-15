@@ -214,7 +214,7 @@ export function FormularioPedido({ onTerminar }: { onTerminar: () => void }) {
 }
 
 function Campo({ id, etiqueta, error, children }: {
-  id: string; etiqueta: string; error?: string; children: React.ReactNode;
+  id: string; etiqueta: string; error?: string | undefined; children: React.ReactNode;
 }) {
   return (
     <div className="flex flex-col gap-1">

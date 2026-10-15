@@ -55,7 +55,7 @@ export const PRODUCTOS_FRECUENTES: { nombre: string; unidad: Unidad }[] = [
   { nombre: "Pasta", unidad: "paq" },
 ];
 
-export type Errores = Partial<Record<"cliente" | "celular" | "items" | "direccion", string>>;
+export type Errores = Partial<Record<"cliente" | "celular" | "items" | "direccion", string | undefined>>;
 
 /** Valida el pedido aplicando las reglas de negocio 1–3. */
 export function validarPedido(d: DatosPedido): Errores {

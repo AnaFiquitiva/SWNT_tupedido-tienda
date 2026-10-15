@@ -16,7 +16,7 @@ const base: DatosPedido = {
 describe("validarPedido", () => {
   it("exige al menos un producto con cantidad > 0", () => {
     expect(validarPedido({ ...base, items: [] }).items).toBe("Agrega un producto");
-    expect(validarPedido({ ...base, items: [{ ...base.items[0], cantidad: 0 }] }).items).toBe("Agrega un producto");
+    expect(validarPedido({ ...base, items: [{ ...base.items[0]!, cantidad: 0 }] }).items).toBe("Agrega un producto");
   });
   it("exige dirección a domicilio", () => {
     expect(validarPedido({ ...base, entrega: "domicilio" }).direccion).toBeDefined();
@@ -39,8 +39,8 @@ describe("guardarPedido", () => {
   it("sin señal queda Pendiente y se sincroniza después", () => {
     const a = memoria();
     guardarPedido(a, base, false);
-    expect(leerPedidos(a)[0].estado).toBe("Pendiente");
+    expect(leerPedidos(a)[0]!.estado).toBe("Pendiente");
     expect(sincronizarPendientes(a)).toBe(1);
-    expect(leerPedidos(a)[0].estado).toBe("Recibido");
+    expect(leerPedidos(a)[0]!.estado).toBe("Recibido");
   });
 });
