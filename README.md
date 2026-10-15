@@ -1,3 +1,29 @@
+# TuPedido Tienda
+
+App móvil para que tenderos de barrio en Colombia registren y consulten sus pedidos desde el celular, en lugar de un cuaderno. Prototipo construido con Lovable (React + TypeScript + Tailwind) a partir de las especificaciones de los laboratorios del curso.
+
+**Objetivo:** que tenderos de barrio gestionen pedidos en el celular y reduzcan al menos 20 % el tiempo de entrega y los errores en 6 meses.
+
+## Entregables de los laboratorios
+
+| Laboratorio | Documento |
+|---|---|
+| 1 – Comprensión del problema y objetivo | [docs/lab1-comprension-del-problema.md](docs/lab1-comprension-del-problema.md) |
+| 2 – Mapa de componentes y especificaciones | [docs/lab2-especificaciones.md](docs/lab2-especificaciones.md) |
+| 3 – Implementación con Vibe Coding (Lovable) | [docs/lab3-vibe-coding.md](docs/lab3-vibe-coding.md) |
+
+## Componente implementado: C4 – Formulario de Pedido
+
+| Archivo | Qué hace |
+|---|---|
+| `src/components/pedido/FormularioPedido.tsx` | Interfaz del formulario |
+| `src/components/pedido/RequiereSesion.tsx` | Exige sesión antes de mostrar el formulario |
+| `src/lib/pedido.ts` | Reglas de negocio, guardado y sincronización sin conexión |
+| `src/hooks/useConexion.ts` · `src/hooks/useSesion.ts` | Estado de conexión y sesión simulada |
+| `src/test/` | 12 pruebas (Vitest + Testing Library) |
+
+---
+
 # Welcome to your Lovable project
 
 This project was built with [Lovable](https://lovable.dev).
